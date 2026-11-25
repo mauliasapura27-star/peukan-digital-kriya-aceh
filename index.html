@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peukan Digital - Kriya Aceh</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #1A1113;
+            --bg-card: #24171A;
+            --bg-card-hover: #2E1D21;
+            --bg-sidebar: #221618;
+            --accent-crimson: #9E2A3B;
+            --accent-crimson-bright: #B83346;
+            --accent-gold: #F5C767;
+            --accent-gold-dim: rgba(245, 199, 103, 0.15);
+            --text-primary: #FDF8F6;
+            --text-secondary: #B8A5A8;
+            --text-muted: #826E72;
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --font-serif: 'Fraunces', Georgia, serif;
+            --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 96px;
+            background-color: var(--bg-sidebar);
+            border-right: 1px solid var(--border-subtle);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px 12px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            z-index: 100;
+        }
+
+        .brand-logo {
+            font-family: var(--font-serif);
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--accent-crimson-bright);
+            text-align: center;
+            line-height: 1.2;
+            margin-bottom: 28px;
+            cursor: pointer;
+        }
+
+        .nav-items {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+            align-items: center;
+        }
+
+        .nav-btn {
+            width: 68px;
+            height: 76px;
+            border-radius: 28px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: var(--font-sans);
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-primary);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(145deg, #B83346, #8B2232);
+            color: #FFFFFF;
+            box-shadow: 0 8px 20px rgba(184, 51, 70, 0.35);
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        /* Main Content */
+        .main-wrapper {
+            margin-left: 96px;
+            flex: 1;
+            padding: 32px 48px 40px;
+            max-width: 1360px;
+        }
+
+        /* Header */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 32px;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .greeting h1 {
+            font-family: var(--font-serif);
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .greeting p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .search-box {
+            position: relative;
+            width: 280px;
+        }
+
+        .search-box input {
+            width: 100%;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 999px;
+            padding: 12px 20px;
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-box input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .search-box input:focus {
+            border-color: var(--accent-crimson-bright);
+        }
+
+        /* Hero Section Grid */
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.55fr 1fr;
+            gap: 24px;
+            margin-bottom: 44px;
+        }
+
+        /* Hero Left Card */
+        .hero-featured {
+            background: linear-gradient(135deg, #A82C3E 0%, #7C1E2B 100%);
+            border-radius: 36px;
+            padding: 36px 40px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 310px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Subtle geometric pattern overlay */
+        .hero-featured::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.08) 2px, transparent 2px);
+            background-size: 24px 24px;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .hero-featured-content {
+            position: relative;
+            z-index: 2;
+            max-width: 340px;
+        }
+
+        .pill-badge {
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.22);
+            color: #FDF8F6;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 5px 14px;
+            border-radius: 999px;
+            margin-bottom: 16px;
+        }
+
+        .hero-featured h2 {
+            font-family: var(--font-serif);
+            font-size: 46px;
+            font-weight: 800;
+            line-height: 1.05;
+            margin-bottom: 16px;
+            color: #FFFFFF;
+        }
+
+        .hero-featured p {
+            font-size: 13.5px;
+            color: rgba(255, 255, 255, 0.88);
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .btn-hero {
+            background: rgba(0, 0, 0, 0.25);
+            hover: rgba(0, 0, 0, 0.35);
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 10px 22px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-hero:hover {
+            background: rgba(0, 0, 0, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .hero-medallion {
+            position: relative;
+            z-index: 2;
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            background: #F5C767;
+            box-shadow: 0 0 0 14px rgba(245, 199, 103, 0.3), 0 16px 32px rgba(0, 0, 0, 0.25);
+            flex-shrink: 0;
+        }
+
+        /* Hero Right Column */
+        .hero-right {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .stats-blob {
+            background: linear-gradient(135deg, #B33144 0%, #831F2E 100%);
+            border-radius: 44px 44px 110px 44px;
+            padding: 28px 32px;
+            position: relative;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
+        }
+
+        .stats-sun {
+            position: absolute;
+            top: 22px;
+            left: 36px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #F5C767;
+        }
+
+        .stat-big {
+            font-family: var(--font-serif);
+            font-size: 42px;
+            font-weight: 800;
+            line-height: 1;
+            color: #FFFFFF;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 12px;
+        }
+
+        .stat-mid {
+            font-family: var(--font-serif);
+            font-size: 26px;
+            font-weight: 700;
+            line-height: 1.1;
+            color: #FFFFFF;
+        }
+
+        .stat-sub {
+            font-size: 11.5px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .popular-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            padding: 20px 24px;
+        }
+
+        .popular-tag {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .popular-title {
+            font-family: var(--font-serif);
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .popular-meta {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .popular-link {
+            color: var(--accent-crimson-bright);
+            font-size: 12.5px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .popular-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Catalog Section */
+        .catalog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .catalog-header h2 {
+            font-family: var(--font-serif);
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .catalog-header p {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .region-select {
+            background-color: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 999px;
+            padding: 10px 20px;
+            font-family: var(--font-sans);
+            font-size: 13px;
+            outline: none;
+            cursor: pointer;
+            min-width: 180px;
+        }
+
+        /* Category Filter Pills */
+        .category-pills {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
+
+        .cat-pill {
+            background-color: var(--bg-card);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: 999px;
+            padding: 9px 18px;
+            font-family: var(--font-sans);
+            font-size: 12.5px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .cat-pill:hover {
+            background-color: var(--bg-card-hover);
+            color: var(--text-primary);
+        }
+
+        .cat-pill.active {
+            background-color: var(--accent-crimson-bright);
+            color: #FFFFFF;
+            border-color: var(--accent-crimson-bright);
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+            margin-bottom: 48px;
+        }
+
+        .product-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 26px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.35);
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .product-img-wrap {
+            position: relative;
+            width: 100%;
+            height: 175px;
+            border-radius: 18px;
+            overflow: hidden;
+            margin-bottom: 16px;
+            background-color: #2E1D21;
+        }
+
+        .product-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-cat-badge {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(26, 17, 19, 0.85);
+            backdrop-filter: blur(6px);
+            color: #FDF8F6;
+            font-size: 10.5px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 999px;
+        }
+
+        .product-illus-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.85);
+            color: #1A1113;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: 999px;
+        }
+
+        .product-body {
+            padding: 0 6px 6px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .product-title {
+            font-family: var(--font-serif);
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            line-height: 1.25;
+        }
+
+        .product-artisan {
+            font-size: 11.5px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .product-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 16px;
+            flex: 1;
+        }
+
+        .product-price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .product-price {
+            font-family: var(--font-serif);
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--accent-crimson-bright);
+        }
+
+        .product-rating {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent-gold);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-wa {
+            width: 100%;
+            background-color: var(--accent-crimson-bright);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 999px;
+            padding: 11px 16px;
+            font-family: var(--font-sans);
+            font-size: 12.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-bottom: 8px;
+        }
+
+        .btn-wa:hover {
+            background-color: #CE3B50;
+        }
+
+        .btn-story {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.03);
+            color: var(--accent-crimson-bright);
+            border: 1px solid rgba(184, 51, 70, 0.2);
+            border-radius: 16px;
+            padding: 9px 14px;
+            font-family: var(--font-sans);
+            font-size: 11.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            line-height: 1.3;
+        }
+
+        .btn-story:hover {
+            background-color: rgba(184, 51, 70, 0.12);
+        }
+
+        /* Bottom Banner & Map Grid */
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 36px;
+        }
+
+        .story-banner {
+            background: linear-gradient(135deg, #9E2A3B 0%, #751C29 100%);
+            border-radius: 32px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 240px;
+        }
+
+        .story-banner::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.08) 2px, transparent 2px);
+            background-size: 22px 22px;
+            opacity: 0.45;
+        }
+
+        .story-banner h2 {
+            font-family: var(--font-serif);
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .story-banner p {
+            font-size: 13.5px;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 340px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Map Card */
+        .map-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 32px;
+            padding: 28px 32px;
+            position: relative;
+            overflow: hidden;
+            min-height: 240px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .map-header {
+            position: relative;
+            z-index: 2;
+        }
+
+        .map-header h3 {
+            font-family: var(--font-serif);
+            font-size: 21px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .map-header p {
+            font-size: 12.5px;
+            color: var(--text-secondary);
+        }
+
+        .map-graphic {
+            position: absolute;
+            right: -20px;
+            top: 10px;
+            bottom: -10px;
+            width: 65%;
+            background: linear-gradient(135deg, rgba(226, 174, 178, 0.75), rgba(185, 118, 125, 0.65));
+            border-radius: 45% 55% 35% 65% / 40% 60% 40% 60%;
+            transform: rotate(-12deg);
+            pointer-events: none;
+        }
+
+        .map-pins {
+            position: relative;
+            z-index: 3;
+            height: 135px;
+            width: 100%;
+        }
+
+        .map-pin {
+            position: absolute;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: transparent;
+            border: none;
+            color: #FFFFFF;
+            font-family: var(--font-sans);
+            font-size: 11.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+        }
+
+        .map-pin:hover {
+            transform: scale(1.08);
+        }
+
+        .pin-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--accent-gold);
+            box-shadow: 0 0 0 4px rgba(245, 199, 103, 0.35);
+        }
+
+        .map-note {
+            font-size: 11px;
+            color: var(--text-muted);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Footer */
+        .site-footer {
+            text-align: center;
+            font-size: 11.5px;
+            color: var(--text-muted);
+            padding-top: 12px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        /* Modal */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 6, 7, 0.78);
+            backdrop-filter: blur(6px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-backdrop.open {
+            display: flex;
+        }
+
+        .modal-box {
+            background-color: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 28px;
+            max-width: 520px;
+            width: 100%;
+            padding: 28px 32px;
+            position: relative;
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 22px;
+            background: rgba(255, 255, 255, 0.06);
+            border: none;
+            color: var(--text-secondary);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .modal-box h3 {
+            font-family: var(--font-serif);
+            font-size: 22px;
+            margin-bottom: 6px;
+        }
+
+        .modal-sub {
+            font-size: 12.5px;
+            color: var(--accent-gold);
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .modal-text {
+            font-size: 13.5px;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin-bottom: 20px;
+        }
+
+        /* Dashboard View (Hidden by default) */
+        .seller-panel {
+            display: none;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 28px;
+            padding: 28px;
+            margin-bottom: 36px;
+        }
+
+        .seller-panel.active {
+            display: block;
+        }
+
+        .seller-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+            font-size: 13px;
+        }
+
+        .seller-table th, .seller-table td {
+            text-align: left;
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .seller-table th {
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 1120px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .hero-grid, .bottom-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .sidebar {
+                width: 100%;
+                height: 68px;
+                top: auto;
+                bottom: 0;
+                flex-direction: row;
+                justify-content: space-around;
+                padding: 8px 16px;
+                border-right: none;
+                border-top: 1px solid var(--border-subtle);
+            }
+            .brand-logo {
+                display: none;
+            }
+            .nav-items {
+                flex-direction: row;
+                justify-content: space-around;
+            }
+            .nav-btn {
+                height: 52px;
+                width: 68px;
+                border-radius: 18px;
+            }
+            .main-wrapper {
+                margin-left: 0;
+                padding: 24px 20px 92px;
+            }
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-featured {
+                flex-direction: column;
+                text-align: center;
+                gap: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+        <div class="brand-logo" onclick="switchView('beranda')">Peukan<br>Digital</div>
+        <nav class="nav-items">
+            <button class="nav-btn active" data-nav="beranda" onclick="switchView('beranda')">
+                <span class="nav-icon">🏠</span>
+                <span>Beranda</span>
+            </button>
+            <button class="nav-btn" data-nav="katalog" onclick="switchView('katalog')">
+                <span class="nav-icon">🛍️</span>
+                <span>Katalog</span>
+            </button>
+            <button class="nav-btn" data-nav="peta" onclick="switchView('peta')">
+                <span class="nav-icon">🗺️</span>
+                <span>Peta</span>
+            </button>
+            <button class="nav-btn" data-nav="penjual" onclick="switchView('penjual')">
+                <span class="nav-icon">📊</span>
+                <span>Penjual</span>
+            </button>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-wrapper">
+        <!-- Top Header -->
+        <header class="top-header">
+            <div class="greeting">
+                <h1>Halo, pecinta kriya 👋</h1>
+                <p>Temukan karya tangan dari seluruh Aceh dan pesan langsung ke pengrajinnya.</p>
+            </div>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Cari kasab, songket, rencong..." oninput="filterProducts()">
+            </div>
+        </header>
+
+        <!-- Seller Dashboard Section (Toggled via sidebar/link) -->
+        <section id="sellerSection" class="seller-panel">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                    <h2 style="font-family:var(--font-serif); font-size:22px;">Dashboard Pengrajin & Statistik Pesanan</h2>
+                    <p style="font-size:13px; color:var(--text-secondary);">Pantau klik pesanan WhatsApp dan stok kriya dari 9 pengrajin Aceh.</p>
+                </div>
+                <button class="btn-hero" onclick="switchView('beranda')">Tutup Dashboard</button>
+            </div>
+            <table class="seller-table">
+                <thead>
+                    <tr>
+                        <th>Produk Kriya</th>
+                        <th>Pengrajin & Daerah</th>
+                        <th>Harga</th>
+                        <th>Klik Pesan WA</th>
+                        <th>Rating</th>
+                    </tr>
+                </thead>
+                <tbody id="sellerTableBody"></tbody>
+            </table>
+        </section>
+
+        <!-- Hero Section -->
+        <section id="heroSection" class="hero-grid">
+            <div class="hero-featured">
+                <div class="hero-featured-content">
+                    <span class="pill-badge">Kriya pilihan</span>
+                    <h2>Sulam<br>Kasab</h2>
+                    <p>Benang emas disulam di atas beludru, tradisi yang masih hidup di Banda Aceh hingga Aceh Selatan.</p>
+                    <a href="#katalogSection" class="btn-hero" onclick="selectCategory('Sulam & Kasab')">Lihat karyanya</a>
+                </div>
+                <div class="hero-medallion" aria-hidden="true"></div>
+            </div>
+
+            <div class="hero-right">
+                <div class="stats-blob">
+                    <div class="stats-sun" aria-hidden="true"></div>
+                    <div class="stat-big">9</div>
+                    <div class="stat-label">produk kriya</div>
+                    <div class="stat-mid">5</div>
+                    <div class="stat-sub">daerah asal · 9 pengrajin</div>
+                </div>
+
+                <div class="popular-card">
+                    <div class="popular-tag">Paling sering dipesan</div>
+                    <div class="popular-title">Tas Sulam Kasab Beludru</div>
+                    <div class="popular-meta">34 klik pesan · Banda Aceh</div>
+                    <button class="popular-link" onclick="switchView('penjual')">Buka dashboard penjual →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Catalog Section -->
+        <section id="katalogSection">
+            <div class="catalog-header">
+                <div>
+                    <h2>Kriya pilihan</h2>
+                    <p>Dipilih dari pengrajin di berbagai daerah Aceh.</p>
+                </div>
+                <select id="regionSelect" class="region-select" onchange="filterProducts()">
+                    <option value="Semua">Semua daerah</option>
+                    <option value="Banda Aceh">Banda Aceh</option>
+                    <option value="Aceh Besar">Aceh Besar</option>
+                    <option value="Aceh Tengah">Aceh Tengah</option>
+                    <option value="Bener Meriah">Bener Meriah</option>
+                    <option value="Aceh Selatan">Aceh Selatan</option>
+                </select>
+            </div>
+
+            <div class="category-pills" id="categoryPills">
+                <button class="cat-pill active" data-cat="Semua" onclick="selectCategory('Semua')">✨ Semua</button>
+                <button class="cat-pill" data-cat="Sulam & Kasab" onclick="selectCategory('Sulam & Kasab')">🧵 Sulam & Kasab</button>
+                <button class="cat-pill" data-cat="Tenun & Songket" onclick="selectCategory('Tenun & Songket')">🧣 Tenun & Songket</button>
+                <button class="cat-pill" data-cat="Logam & Ukir" onclick="selectCategory('Logam & Ukir')">🗡️ Logam & Ukir</button>
+                <button class="cat-pill" data-cat="Anyaman & Kayu" onclick="selectCategory('Anyaman & Kayu')">🧺 Anyaman & Kayu</button>
+            </div>
+
+            <div class="product-grid" id="productGrid"></div>
+        </section>
+
+        <!-- Bottom Story & Map Section -->
+        <section id="petaSection" class="bottom-grid">
+            <div class="story-banner">
+                <h2>Setiap benang punya cerita.</h2>
+                <p>Beli langsung dari pengrajin, dan bantu tradisi Aceh tetap hidup.</p>
+            </div>
+
+            <div class="map-card">
+                <div class="map-header">
+                    <h3>Dari mana kriya ini berasal</h3>
+                    <p>Pilih daerah untuk melihat karyanya.</p>
+                </div>
+
+                <div class="map-graphic" aria-hidden="true"></div>
+
+                <div class="map-pins">
+                    <button class="map-pin" style="top: 12px; left: 48%;" onclick="filterByMap('Banda Aceh')">
+                        <span class="pin-dot"></span> Banda Aceh
+                    </button>
+                    <button class="map-pin" style="top: 38px; left: 56%;" onclick="filterByMap('Aceh Besar')">
+                        <span class="pin-dot"></span> Aceh Besar
+                    </button>
+                    <button class="map-pin" style="top: 68px; left: 60%;" onclick="filterByMap('Aceh Tengah')">
+                        <span class="pin-dot"></span> Aceh Tengah
+                    </button>
+                    <button class="map-pin" style="top: 76px; left: 32%;" onclick="filterByMap('Bener Meriah')">
+                        <span class="pin-dot"></span> Bener Meriah
+                    </button>
+                    <button class="map-pin" style="top: 112px; left: 72%;" onclick="filterByMap('Aceh Selatan')">
+                        <span class="pin-dot"></span> Aceh Selatan
+                    </button>
+                </div>
+
+                <div class="map-note">Peta ilustrasi, posisi perkiraan</div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            Peukan Digital · dibuat untuk pelatihan CHAT, Banda Aceh. Nama pengrajin, harga, stok, dan rating adalah data contoh.
+        </footer>
+    </main>
+
+    <!-- Story & Craft Modal -->
+    <div class="modal-backdrop" id="storyModal" onclick="closeModal(event)">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <h3 id="modalTitle">Judul Kriya</h3>
+            <div class="modal-sub" id="modalMeta">Pengrajin · Daerah</div>
+            <p class="modal-text" id="modalHistory"></p>
+            <button class="btn-wa" id="modalWaBtn">Pesan langsung via WhatsApp</button>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            {
+                id: 1,
+                title: "Tas Sulam Kasab Beludru",
+                category: "Sulam & Kasab",
+                artisan: "Kasab Nusantara",
+                region: "Banda Aceh",
+                desc: "Benang emas disulam di atas beludru, dengan motif yang terinspirasi tumbuhan dan alam.",
+                price: "Rp185.000",
+                rating: "4.8",
+                clicks: 34,
+                isIllustration: false,
+                image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?auto=format&fit=crop&w=600&q=80",
+                history: "Sulam kasab adalah seni menyulam benang emas atau perak di atas kain beludru berwarna gelap (merah hati, hijau tua, atau hitam). Dahulu hanya digunakan untuk perlengkapan upacara adat dan bangsawan Aceh, kini diadaptasi menjadi tas modern tanpa meninggalkan motif pucuk rebung dan awan berarak."
+            },
+            {
+                id: 2,
+                title: "Kain Kasab Aneuk Jamee",
+                category: "Sulam & Kasab",
+                artisan: "Kasab Samadua",
+                region: "Aceh Selatan",
+                desc: "Di Aceh Selatan, kasab berpadu dengan pengaruh benang emas Minangkabau.",
+                price: "Rp240.000",
+                rating: "4.6",
+                clicks: 19,
+                isIllustration: false,
+                image: "https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?auto=format&fit=crop&w=600&q=80",
+                history: "Masyarakat Aneuk Jamee di pesisir Aceh Selatan mengembangkan teknik sulam kasab dengan perpaduan warna merah menyala dan benang emas padat. Proses pembuatannya memakan waktu 2 hingga 4 minggu secara manual menggunakan pemidangan kayu."
+            },
+            {
+                id: 3,
+                title: "Syal Bordir Kerawang Gayo",
+                category: "Sulam & Kasab",
+                artisan: "Kerawang Bebesen",
+                region: "Aceh Tengah",
+                desc: "Kerawang Gayo ditetapkan sebagai warisan budaya tak benda pada 2014.",
+                price: "Rp165.000",
+                rating: "4.9",
+                clicks: 28,
+                isIllustration: false,
+                image: "https://images.unsplash.com/photo-1601924994987-69e26d50dc26?auto=format&fit=crop&w=600&q=80",
+                history: "Motif Kerawang Gayo seperti Emun Berangkat, Puter Tali, dan Tapak Seleman mengandung filosofi adat istiadat masyarakat dataran tinggi Gayo. Bordir dikerjakan dengan benang kontras merah, kuning, hijau, dan putih di atas dasar hitam."
+            },
+            {
+                id: 4,
+                title: "Kain Tenun Motif Lintem",
+                category: "Tenun & Songket",
+                artisan: "Tenun Gayo Bebesen",
+                region: "Aceh Tengah",
+                desc: "Pada tenun, motif Kerawang Gayo disebut Lintem.",
+                price: "Rp280.000",
+                rating: "4.7",
+                clicks: 21,
+                isIllustration: false,
+                image: "https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?auto=format&fit=crop&w=600&q=80",
+                history: "Tenun Lintem dibuat menggunakan alat tenun bukan mesin (ATBM) dan gedogan tradisional di Takengon. Setiap helai benang pakan disisipkan dengan teliti untuk membentuk ragam hias geometris khas Gayo."
+            },
+            {
+                id: 5,
+                title: "Selendang Songket Aceh",
+                category: "Tenun & Songket",
+                artisan: "Songket Cut Meutia",
+                region: "Banda Aceh",
+                desc: "Songket Aceh dikenal lewat dominasi warna emas dan perak.",
+                price: "Rp350.000",
+                rating: "4.5",
+                clicks: 16,
+                isIllustration: false,
+                image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=80",
+                history: "Songket Aceh memadukan benang sutra dengan benang makau emas dan perak. Motifnya kerap mengambil inspirasi dari flora lokal seperti bungong keupula, bungong seulanga, dan garis geometris pintu Aceh."
+            },
+            {
+                id: 6,
+                title: "Rencong Hias 30 cm",
+                category: "Logam & Ukir",
+                artisan: "Rencong Baet",
+                region: "Aceh Besar",
+                desc: "Senjata tradisional sekaligus simbol identitas masyarakat Aceh.",
+                price: "Rp450.000",
+                rating: "4.8",
+                clicks: 25,
+                isIllustration: false,
+                image: "https://images.unsplash.com/photo-1589987607627-616cac5c2c5a?auto=format&fit=crop&w=600&q=80",
+                history: "Desa Baet di Aceh Besar merupakan sentra pandai besi pembuat rencong sejak masa Kesultanan Aceh. Bentuk gagang dan bilah rencong melambangkan kaligrafi Bismillah, ditempa dari besi pilihan dengan sarung kayu atau tanduk berukir."
+            },
+            {
+                id: 7,
+                title: "Kalung Motif Pinto Aceh",
+                category: "Logam & Ukir",
+                artisan: "Pinto Craft",
+                region: "Banda Aceh",
+                desc: "Motif Pinto Aceh jadi salah satu suvenir yang paling sering dicari.",
+                price: "Rp275.000",
+                rating: "4.6",
+                clicks: 31,
+                isIllustration: false,
+                image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=600&q=80",
+                history: "Motif Pinto Aceh terinspirasi dari bentuk pintu gerbang Pinto Khop peninggalan Sultan Iskandar Muda. Diciptakan pertama kali pada tahun 1935 oleh perajin perhiasan Aceh, motif ini melambangkan keterbukaan, kehormatan, dan keramahtamahan."
+            },
+            {
+                id: 8,
+                title: "Kotak Perhiasan Pahat Kerawang",
+                category: "Anyaman & Kayu",
+                artisan: "Pahat Takengon",
+                region: "Aceh Tengah",
+                desc: "Pada kayu, motif Kerawang Gayo disebut pahat.",
+                price: "Rp130.000",
+                rating: "4.9",
+                clicks: 18,
+                isIllustration: true,
+                image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80",
+                history: "Ukiran kayu pahat kerawang awalnya menghiasi rumah adat Umah Pitu Ruang di dataran tinggi Gayo. Kini pengrajin di Takengon mengaplikasikan motif ukir tersebut pada kotak perhiasan dan cendera mata kayu pinus serta meranti."
+            },
+            {
+                id: 9,
+                title: "Tikar Anyaman Pandan Gayo",
+                category: "Anyaman & Kayu",
+                artisan: "Tikar Redelong",
+                region: "Bener Meriah",
+                desc: "Tikar khas Gayo yang kini mulai langka, sehingga pengrajinnya dilatih kembali.",
+                price: "Rp220.000",
+                rating: "4.7",
+                clicks: 14,
+                isIllustration: false,
+                image: "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?auto=format&fit=crop&w=600&q=80",
+                history: "Tikar alas adat Gayo dianyam dari daun pandan berduri yang direbus, dijemur, dan diwarnai secara alami. Motif anyaman timbulnya memiliki makna penghormatan bagi tamu yang duduk di atasnya dalam acara adat."
+            }
+        ];
+
+        let selectedCategory = "Semua";
+
+        function renderProducts() {
+            const grid = document.getElementById("productGrid");
+            const search = document.getElementById("searchInput").value.toLowerCase().trim();
+            const region = document.getElementById("regionSelect").value;
+
+            const filtered = products.filter(p => {
+                const matchCat = selectedCategory === "Semua" || p.category === selectedCategory;
+                const matchReg = region === "Semua" || p.region === region;
+                const matchSearch = !search ||
+                    p.title.toLowerCase().includes(search) ||
+                    p.desc.toLowerCase().includes(search) ||
+                    p.artisan.toLowerCase().includes(search) ||
+                    p.region.toLowerCase().includes(search) ||
+                    p.category.toLowerCase().includes(search);
+                return matchCat && matchReg && matchSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding:48px; color:var(--text-secondary);">Tidak ada produk kriya yang sesuai dengan filter saat ini.</div>`;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(p => `
+                <article class="product-card">
+                    <div class="product-img-wrap">
+                        <img src="${p.image}" alt="${p.title}" loading="lazy">
+                        <span class="product-cat-badge">${p.category}</span>
+                        ${p.isIllustration ? '<span class="product-illus-badge">Ilustrasi</span>' : ''}
+                    </div>
+                    <div class="product-body">
+                        <h3 class="product-title">${p.title}</h3>
+                        <div class="product-artisan">${p.artisan} · ${p.region}</div>
+                        <p class="product-desc">${p.desc}</p>
+                        <div class="product-price-row">
+                            <span class="product-price">${p.price}</span>
+                            <span class="product-rating">★ ${p.rating}</span>
+                        </div>
+                        <button class="btn-wa" onclick="orderWhatsApp(${p.id})">Pesan via WhatsApp</button>
+                        <button class="btn-story" onclick="openStoryModal(${p.id})">Sejarah dan cara<br>membuat</button>
+                    </div>
+                </article>
+            `).join("");
+        }
+
+        function renderSellerTable() {
+            const tbody = document.getElementById("sellerTableBody");
+            tbody.innerHTML = products.map(p => `
+                <tr>
+                    <td><strong>${p.title}</strong></td>
+                    <td>${p.artisan} (${p.region})</td>
+                    <td style="color:var(--accent-crimson-bright); font-weight:700;">${p.price}</td>
+                    <td>${p.clicks} klik</td>
+                    <td style="color:var(--accent-gold);">★ ${p.rating}</td>
+                </tr>
+            `).join("");
+        }
+
+        function selectCategory(cat) {
+            selectedCategory = cat;
+            document.querySelectorAll(".cat-pill").forEach(btn => {
+                btn.classList.toggle("active", btn.dataset.cat === cat);
+            });
+            renderProducts();
+        }
+
+        function filterProducts() {
+            renderProducts();
+        }
+
+        function filterByMap(regionName) {
+            document.getElementById("regionSelect").value = regionName;
+            renderProducts();
+            document.getElementById("katalogSection").scrollIntoView({ behavior: "smooth" });
+        }
+
+        function orderWhatsApp(id) {
+            const item = products.find(p => p.id === id);
+            if (!item) return;
+            item.clicks += 1;
+            renderSellerTable();
+            const msg = encodeURIComponent(`Halo ${item.artisan} (${item.region}), saya tertarik memesan produk kriya "${item.title}" (${item.price}) dari Peukan Digital.`);
+            window.open(`https://wa.me/6281200000000?text=${msg}`, "_blank");
+        }
+
+        function openStoryModal(id) {
+            const item = products.find(p => p.id === id);
+            if (!item) return;
+            document.getElementById("modalTitle").textContent = item.title;
+            document.getElementById("modalMeta").textContent = `${item.artisan} · ${item.region} · ${item.category}`;
+            document.getElementById("modalHistory").textContent = item.history;
+            document.getElementById("modalWaBtn").onclick = () => orderWhatsApp(item.id);
+            document.getElementById("storyModal").classList.add("open");
+        }
+
+        function closeModal(e) {
+            if (!e || e.target.id === "storyModal") {
+                document.getElementById("storyModal").classList.remove("open");
+            }
+        }
+
+        function switchView(view) {
+            document.querySelectorAll(".nav-btn").forEach(btn => {
+                btn.classList.toggle("active", btn.dataset.nav === view);
+            });
+
+            const sellerPanel = document.getElementById("sellerSection");
+            if (view === "penjual") {
+                sellerPanel.classList.add("active");
+                sellerPanel.scrollIntoView({ behavior: "smooth" });
+            } else {
+                sellerPanel.classList.remove("active");
+                if (view === "katalog") {
+                    document.getElementById("katalogSection").scrollIntoView({ behavior: "smooth" });
+                } else if (view === "peta") {
+                    document.getElementById("petaSection").scrollIntoView({ behavior: "smooth" });
+                } else {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+            }
+        }
+
+        // Initial render
+        renderProducts();
+        renderSellerTable();
+    </script>
+</body>
+</html>
